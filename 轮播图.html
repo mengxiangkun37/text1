@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #container {
+            width: 680px;
+            height: 350px;
+            background: #ccc;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -340px;
+            margin-top: -175px;
+        }
+
+        #tab li, #arrow span {
+            width: 20px;
+            height: 20px;
+            float: left;
+            background: #000000;
+            color: #cccccc;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+        #tab {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        #arrow {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+        }
+
+        #content img {
+            display: none;
+        }
+
+        #tab li.selected {
+            background: #ff0000;
+        }
+
+        #content img.selected {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="selected" onselectstart="return false">1</li>
+        <li onselectstart="return false">2</li>
+        <li onselectstart="return false">3</li>
+        <li onselectstart="return false">4</li>
+    </ul>
+    <div id="content">
+        <img class="selected" src="img/1.png" alt=""/>
+        <img src="img/2.png" alt=""/>
+        <img src="img/3.png" alt=""/>
+        <img src="img/4.png" alt=""/>
+    </div>
+    <div id="arrow">
+        <span id="prev" onselectstart="return false">&lt;</span>
+        <span id="next" onselectstart="return false">&gt;</span>
+    </div>
+</div>
+</body>
+<script>
+    var oContainer = document.getElementById("container");
+    var aLi = oContainer.getElementsByTagName("li");
+    var aImg = oContainer.getElementsByTagName("img");
+    var oPrev = document.getElementById("prev");
+    var oNext = document.getElementById("next");
+    var iNow = 0;
+    var timer;
+    for (var i = 0; i < aLi.length; i++) {
+        aLi[i].index = i;
+        aLi[i].onmouseover = function () {
+            changeImg(this.index);
+        }
+    }
+    function changeImg(index) {
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].className = "";
+            aImg[i].className = "";
+        }
+        aLi[index].className = "selected";
+        aImg[index].className = "selected";
+    }
+    oNext.onclick = function () {
+        iNow++;
+        iNow = iNow % aLi.length;
+        changeImg(iNow);
+    }
+    oPrev.onclick = function () {
+        iNow--;
+        if (iNow == -1) {
+            iNow = aLi.length - 1;
+        }
+        changeImg(iNow);
+    }
+    timer = setInterval(function(){
+        oNext.onclick();
+    },1000);
+    oContainer.onmouseover = function(){
+        clearInterval(timer);
+    }
+    oContainer.onmouseout = function(){
+        timer = setInterval(function(){
+            oNext.onclick();
+        },1000);
+    }
+
+</script>
+</html>
