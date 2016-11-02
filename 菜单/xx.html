@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #ul1 .li1 {
+            width: 100px;
+            height: 30px;
+            background-color: #ff0000;
+            float: left;
+            margin-right: 5px;
+            text-align: center;
+        }
+
+        #ul1 li a {
+            display: block;
+            width: 100px;
+            height: 30px;
+            color: #000000;
+            line-height: 30px;
+        }
+
+        #ul1 a:hover {
+            background: #00ff00;
+        }
+
+        #ul1 {
+            height: 120px;
+            width: 320px;
+        }
+
+        /*#ul1 {*/
+        /*/!*position:absolute;*!/*/
+        /*/!*top:50%;*!/*/
+        /*/!*left: 50%;*!/*/
+        /*/!*margin-top:-15px;*!/*/
+        /*/!*margin-left: -250px;*!/*/
+        /*width: 500px;*/
+        /*height: 30px;*/
+        /*}*/
+        #ul1 .main-menu a {
+            text-align: left;
+            text-indent: 5px;
+        }
+
+        #ul1 .main-menu li {
+            border-bottom: 1px dashed #000;
+        }
+
+        .main-menu {
+            background: #ccc;
+            /*display:none;*/
+        }
+
+    </style>
+</head>
+<body>
+
+<ul id="ul1">
+    <li class="li1">
+        <a id="ul2" href="#" onclick="aa()">link one</a>
+        <ul id="ul3" class="main-menu">
+            <li><a href="#">one</a></li>
+            <li><a href="#">two</a></li>
+            <li><a href="#">three</a></li>
+        </ul>
+    </li>
+    <li class="li1">
+        <a href="#">link two</a>
+        <ul class="main-menu">
+            <li><a href="#">one</a></li>
+            <li><a href="#">two</a></li>
+            <li><a href="#">three</a></li>
+        </ul>
+    </li>
+    <li class="li1">
+        <a href="#">link three</a>
+        <ul class="main-menu">
+            <li><a href="#">one</a></li>
+            <li><a href="#">two</a></li>
+            <li><a href="#">three</a></li>
+        </ul>
+    </li>
+
+</ul>
+
+</body>
+</html>
+<script>
+    function aa() {
+        document.getElementById("ul3").style.display = "block";
+    }
+
+
+</script>
