@@ -83,23 +83,23 @@
                 var left = e.clientX - 1 / 2 * oMask.offsetWidth;
                 var pleft = oSmallImg.offsetWidth / oMask.offsetWidth;
                 var ptop = oSmallImg.offsetHeight / oMask.offsetHeight;
-                var mleft = -pleft*left;
+                var mleft = -pleft * left;
                 var mtop = -ptop * top;
                 if (top < 0) {
                     top = 0;
-                    mtop = -2 * top;
+                    mtop = -ptop * top;
                 }
                 if (top > oSmallImg.offsetHeight - oMask.offsetHeight) {
                     top = oSmallImg.offsetHeight - oMask.offsetHeight;
-                    mtop = -2 * top;
+                    mtop = -ptop * top;
                 }
                 if (left < 0) {
                     left = 0;
-                    mleft = -2 * left;
+                    mleft = -pleft * left;
                 }
                 if (left > oSmallImg.offsetWidth - oMask.offsetWidth) {
                     left = oSmallImg.offsetWidth - oMask.offsetWidth;
-                    mleft = -2 * left;
+                    mleft = -pleft * left;
                 }
                 oMask.style.left = left + "px";
                 oMask.style.top = top + "px";
