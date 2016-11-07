@@ -9,6 +9,10 @@
             padding: 0;
         }
 
+        img {
+            border: 0;
+        }
+
         a {
             text-decoration: none;
         }
@@ -17,7 +21,7 @@
             list-style: none;
         }
 
-        img {
+       #small-img img {
             width: 300px;
             height: 400px;
         }
@@ -29,7 +33,17 @@
             float: left;
         }
 
-        #mask {
+        #mask{
+            width: 300px;
+            height: 400px;
+            background: #ff0000;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        #drag {
             width: 150px;
             height: 200px;
             position: absolute;
@@ -49,8 +63,7 @@
         }
 
         #move {
-            width: 600px;
-            height: 800px;
+
             display: none;
             position: absolute;
         }
@@ -61,55 +74,52 @@
 <div id="small-img">
     <a href="#">
         <img src="../img/5.jpg" alt=""/>
-
-        <div id="mask"></div>
     </a>
+    <div id="drag"></div>
+    <div id="mask"></div>
 </div>
 <div id="big-img">
     <img id="move" src="../img/5.jpg" alt=""/>
-
 </div>
 <script>
     (function () {
         var oSmallImg = document.getElementById("small-img");
-        var oMask = document.getElementById("mask");
+        var oBigImg = document.getElementById("big-img");
+        var oDrag = document.getElementById("drag");
         var oMove = document.getElementById("move");
-        oSmallImg.onmouseover = function () {
-            oMask.style.display = "block";
+        var oMask = document.getElementById("mask");
+        oMask.onmouseover = function () {
+            oDrag.style.display = "block";
             oMove.style.display = "block";
-            oSmallImg.onmousemove = function (e) {
+            oMask.onmousemove = function (e) {
                 e = e || window.event;
-                var top = e.clientY - 1 / 2 * oMask.offsetHeight;
-                var left = e.clientX - 1 / 2 * oMask.offsetWidth;
-                var pleft = oSmallImg.offsetWidth / oMask.offsetWidth;
-                var ptop = oSmallImg.offsetHeight / oMask.offsetHeight;
-                var mleft = -pleft * left;
-                var mtop = -ptop * top;
+                var top = e.clientY - 1 / 2 * oDrag.offsetHeight;
+                var left = e.clientX - 1 / 2 * oDrag.offsetWidth;
+                var mleft = oSmallImg.offsetWidth - oDrag.offsetWidth;
+                var mtop = oSmallImg.offsetHeight - oDrag.offsetHeight;
                 if (top < 0) {
                     top = 0;
-                    mtop = -ptop * top;
                 }
-                if (top > oSmallImg.offsetHeight - oMask.offsetHeight) {
-                    top = oSmallImg.offsetHeight - oMask.offsetHeight;
-                    mtop = -ptop * top;
+                if (top > mtop) {
+                    top = mtop;
                 }
                 if (left < 0) {
                     left = 0;
-                    mleft = -pleft * left;
                 }
-                if (left > oSmallImg.offsetWidth - oMask.offsetWidth) {
-                    left = oSmallImg.offsetWidth - oMask.offsetWidth;
-                    mleft = -pleft * left;
+                if (left > mleft) {
+                    left = mleft;
                 }
-                oMask.style.left = left + "px";
-                oMask.style.top = top + "px";
-                oMove.style.left = mleft + "px";
-                oMove.style.top = mtop + "px";
+                oDrag.style.left = left + "px";
+                oDrag.style.top = top + "px";
+                var pleft = oMove.offsetWidth - oBigImg.offsetWidth;
+                var ptop = oMove.offsetHeight - oBigImg.offsetHeight;
+                oMove.style.left = -(left / mleft) * pleft + "px";
+                oMove.style.top = -(top / mtop) * ptop + "px";
             }
         }
-        oSmallImg.onmouseout = function () {
+        oMask.onmouseout = function () {
             oSmallImg.onmousemove = null;
-            oMask.style.display = "none";
+            oDrag.style.display = "none";
             oMove.style.display = "none";
         }
     })();
